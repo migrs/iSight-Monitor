@@ -13,7 +13,18 @@
 @synthesize window;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	// Insert code here to initialize your application 
+    
+	QTCaptureSession *session = [[QTCaptureSession alloc] init];
+	
+    QTCaptureDevice *iSight = [QTCaptureDevice defaultInputDeviceWithMediaType:QTMediaTypeVideo];
+	[iSight open:nil];
+
+	QTCaptureDeviceInput *myInput = [QTCaptureDeviceInput deviceInputWithDevice:iSight];
+	[session addInput:myInput error:nil];
+    
+	[outputView setCaptureSession:session];
+	
+	[session startRunning]; 
 }
 
 @end
